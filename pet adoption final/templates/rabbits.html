@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Rabbit Adoption</title>
+
+<style>
+body{
+    margin:0;
+    font-family:Arial, sans-serif;
+    background:url("https://images.pexels.com/photos/16468571/pexels-photo-16468571.jpeg") no-repeat center/cover;
+    min-height:100vh;
+}
+
+/* HEADER */
+header{
+    background:rgba(0,0,0,0.7);
+    color:#fff;
+    padding:15px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+header button{
+    padding:8px 15px;
+    border:none;
+    border-radius:5px;
+    cursor:pointer;
+}
+
+/* FILTER */
+.filter-box{
+    text-align:center;
+    margin:20px;
+}
+
+select{
+    padding:10px;
+    border-radius:6px;
+    font-size:16px;
+}
+
+/* BREED TITLE */
+.breed-title{
+    margin:30px 20px 10px;
+    color:#fff;
+    font-size:24px;
+    border-left:5px solid #ff9800;
+    padding-left:10px;
+}
+
+/* GRID */
+.grid{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:20px;
+    padding:20px;
+}
+
+/* CARD */
+.card{
+    height:320px;
+    border-radius:15px;
+    position:relative;
+    color:#fff;
+    overflow:hidden;
+    box-shadow:0 5px 15px rgba(0,0,0,0.6);
+}
+
+.overlay{
+    background:rgba(0,0,0,0.65);
+    position:absolute;
+    bottom:0;
+    width:100%;
+    padding:15px;
+}
+
+.btn{
+    padding:7px 12px;
+    border:none;
+    border-radius:5px;
+    margin-top:8px;
+    cursor:pointer;
+}
+
+.adopt{background:#4CAF50;color:white;}
+.wishlist{background:#ff4081;color:white;}
+</style>
+</head>
+
+<body>
+
+<header>
+    <h2>🐇 Rabbit Adoption</h2>
+    <button onclick="location.href='/dashboard'">⬅ Back to Dashboard</button>
+</header>
+
+<div class="filter-box">
+    <select id="breedFilter" onchange="filterBreed()">
+        <option value="All">All Breeds</option>
+        <option value="Holland Lop">Holland Lop</option>
+        <option value="Netherland Dwarf">Netherland Dwarf</option>
+        <option value="Lionhead">Lionhead</option>
+        <option value="Flemish Giant">Flemish Giant</option>
+        <option value="Mini Rex">Mini Rex</option>
+    </select>
+</div>
+
+<div id="rabbitsContainer"></div>
+
+<script>
+const rabbits = {
+    "Holland Lop":[
+        {id:"1",name:"Bunny", age:"1 Year", price:"₹4,000", img:"https://images.pexels.com/photos/3828097/pexels-photo-3828097.jpeg"},
+        {id:"2",name:"Snowy", age:"1.5 Years", price:"₹4,500", img:"https://images.pexels.com/photos/15288661/pexels-photo-15288661.jpegg"}
+    ],
+    "Netherland Dwarf":[
+        {id:"3",name:"Peanut", age:"8 Months", price:"₹5,000", img:"https://images.pexels.com/photos/30197040/pexels-photo-30197040.jpeg"},
+        {id:"4",name:"Tiny", age:"1 Year", price:"₹5,500", img:"https://images.pexels.com/photos/33535254/pexels-photo-33535254.jpeg"}
+    ],
+    "Lionhead":[
+        {id:"5",name:"Leo", age:"1.5 Years", price:"₹6,000", img:"https://images.pexels.com/photos/19613749/pexels-photo-19613749.jpeg"},
+        {id:"6",name:"Muffin", age:"2 Years", price:"₹6,200", img:"https://images.pexels.com/photos/19904639/pexels-photo-19904639.jpeg"}
+    ],
+    "Flemish Giant":[
+        {id:"7",name:"Bruno", age:"2 Years", price:"₹8,000", img:"https://images.pexels.com/photos/29026180/pexels-photo-29026180.jpeg"},
+        {id:"8",name:"Rocky", age:"2.5 Years", price:"₹8,500", img:"https://images.pexels.com/photos/8864343/pexels-photo-8864343.jpeg"}
+    ],
+    "Mini Rex":[
+        {id:"9",name:"Coco", age:"1 Year", price:"₹5,800", img:"https://images.pexels.com/photos/34451824/pexels-photo-34451824.jpeg"},
+        {id:"10",name:"Oreo", age:"1.2 Years", price:"₹6,000", img:"https://images.pexels.com/photos/33535254/pexels-photo-33535254.jpeg"}
+    ]
+};
+
+function loadRabbits(filter="All"){
+    const container=document.getElementById("rabbitsContainer");
+    container.innerHTML="";
+
+    for(let breed in rabbits){
+        if(filter!=="All" && filter!==breed) continue;
+
+        container.innerHTML+=`
+        <div class="breed-title">${breed}</div>
+        <div class="grid" id="${breed.replaceAll(' ','')}"></div>`;
+
+        rabbits[breed].forEach(rabbit=>{
+            document.getElementById(breed.replaceAll(' ','')).innerHTML+=`
+            <div class="card" style="background:url('${rabbit.img}') center/cover">
+                <div class="overlay">
+                    <h3>${rabbit.name}</h3>
+                    <p>Age: ${rabbit.age}</p>
+                    <p>Price: ${rabbit.price}</p>
+                    <button class="btn adopt" onclick="adoptPet(
+                   '${rabbit.name}',
+                   '${rabbit.age}',
+                   '${breed}',
+                   '${rabbit.price}',
+                   '${rabbit.img}'
+                   )">Adopt Me</button>
+                    <button class="btn wishlist"
+                        onclick="addToWishlist('${rabbit.name}','${breed}','${rabbit.img}','${rabbit.price}')">
+                        Wishlist
+                    </button>
+                </div>
+            </div>`;
+        });
+    }
+}
+
+function filterBreed(){
+    loadRabbits(document.getElementById("breedFilter").value);
+}
+
+/* WISHLIST */
+function addToWishlist(name,breed,img,price){
+    let wishlist=JSON.parse(localStorage.getItem("wishlist"))||[];
+    if(wishlist.some(d=>d.name===name)){
+        alert("Already in wishlist ❤️");
+        return;
+    }
+    wishlist.push({name,breed,img,price});
+    localStorage.setItem("wishlist",JSON.stringify(wishlist));
+    alert(name+" added to wishlist 🐾");
+}
+
+/* ✅ ADOPT → FLASK ROUTE */
+function adoptPet(name, age, breed, price, img){
+    // Optional: store selected pet
+    localStorage.setItem("adoptPet", JSON.stringify({
+        name, age, breed, price, img
+    }));
+
+    // 🔥 CORRECT REDIRECT TO ADOPTION FORM
+    window.location.href = "/adoption";
+}
+
+loadRabbits();
+</script>
+
+</body>
+</html>
