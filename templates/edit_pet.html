@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Edit Pet</title>
+
+<style>
+body{
+    font-family: Arial;
+    background: linear-gradient(to right, #ffdde1, #ee9ca7);
+    padding:40px;
+}
+
+form{
+    background:white;
+    padding:25px;
+    width:400px;
+    margin:auto;
+    border-radius:10px;
+    box-shadow:0px 4px 10px rgba(0,0,0,0.2);
+}
+
+input, select{
+    width:100%;
+    padding:8px;
+    margin:8px 0;
+}
+
+button{
+    background:#f39c12;
+    color:white;
+    padding:10px;
+    border:none;
+    border-radius:5px;
+    width:100%;
+    cursor:pointer;
+}
+
+a{
+    display:block;
+    text-align:center;
+    margin-top:15px;
+    text-decoration:none;
+}
+</style>
+</head>
+
+<body>
+
+<h2 style="text-align:center;">✏ Edit Pet</h2>
+
+<form method="POST">
+<label>Pet Name</label>
+<input type="text" name="pet_id" value="{{ pet.pet_id }}" required>
+
+<label>Pet Name</label>
+<input type="text" name="pet_name" value="{{ pet.pet_name }}" required>
+
+<label>Breed</label>
+<input type="text" name="breed" value="{{ pet.breed }}" required>
+
+<label>Age</label>
+<input type="number" name="age" value="{{ pet.age }}" required>
+
+<label>Price</label>
+<input type="number" name="price" value="{{ pet.price }}" required>
+
+<label>Status</label>
+<select name="status">
+    <option value="Available" {% if pet.status == 'Available' %}selected{% endif %}>Available</option>
+    <option value="Adopted" {% if pet.status == 'Adopted' %}selected{% endif %}>Adopted</option>
+</select>
+
+<button type="submit">Update Pet</button>
+
+</form>
+
+<a href="/admin-pets">⬅ Back to Manage Pets</a>
+
+</body>
+</html>

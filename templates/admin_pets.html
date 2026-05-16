@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Manage Pets</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Segoe UI',sans-serif;
+}
+
+body{
+    min-height:100vh;
+    background: linear-gradient(135deg,#89f7fe,#66a6ff);
+    padding:40px;
+}
+
+.container{
+    background: rgba(255,255,255,0.15);
+    backdrop-filter: blur(12px);
+    border-radius:20px;
+    padding:30px;
+    box-shadow:0 10px 30px rgba(0,0,0,0.25);
+}
+
+h2{
+    text-align:center;
+    margin-bottom:25px;
+    color:white;
+    letter-spacing:1px;
+}
+
+/* TABLE */
+table{
+    width:100%;
+    border-collapse:collapse;
+    background:white;
+    border-radius:12px;
+    overflow:hidden;
+    box-shadow:0 8px 20px rgba(0,0,0,0.15);
+}
+
+th{
+    background: linear-gradient(to right,#2c3e50,#4ca1af);
+    color:white;
+    padding:14px;
+    font-size:15px;
+}
+
+td{
+    padding:12px;
+    border-bottom:1px solid #eee;
+    font-size:14px;
+    text-align:center;
+}
+
+tr:hover{
+    background:#f5f9ff;
+}
+
+/* ACTION COLUMN */
+th:last-child, td:last-child{
+    width:220px;
+}
+
+/* BUTTON GROUP */
+.action-buttons{
+    display:flex;
+    justify-content:center;
+    gap:10px;
+}
+
+/* BUTTONS */
+button{
+    padding:7px 14px;
+    border:none;
+    border-radius:8px;
+    cursor:pointer;
+    font-weight:600;
+    transition:0.3s;
+}
+
+.view-btn{
+    background:linear-gradient(to right,#36d1dc,#5b86e5);
+    color:white;
+}
+.view-btn:hover{
+    transform:scale(1.08);
+    box-shadow:0 4px 10px rgba(0,0,0,0.25);
+}
+
+.delete-btn{
+    background:linear-gradient(to right,#ff416c,#ff4b2b);
+    color:white;
+}
+.delete-btn:hover{
+    transform:scale(1.08);
+    box-shadow:0 4px 10px rgba(0,0,0,0.25);
+}
+
+/* ADD BUTTON */
+.add-btn{
+    margin-top:25px;
+    background:linear-gradient(to right,#11998e,#38ef7d);
+    color:white;
+    padding:12px 22px;
+    font-size:16px;
+    display:block;
+    margin:25px auto 0;
+}
+.add-btn:hover{
+    transform:scale(1.07);
+    box-shadow:0 6px 15px rgba(0,0,0,0.25);
+}
+
+/* BACK LINK */
+.back{
+    display:block;
+    text-align:center;
+    margin-top:25px;
+    color:white;
+    font-weight:600;
+    text-decoration:none;
+    transition:0.3s;
+}
+.back:hover{
+    letter-spacing:1px;
+}
+
+a{text-decoration:none;}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h2>🐾 Manage Pets</h2>
+
+<table>
+<tr>
+<th>ID</th>
+<th>Name</th>
+<th>Breed</th>
+<th>Age</th>
+<th>Price</th>
+<th>Status</th>
+<th>Action</th>
+</tr>
+
+{% for pet in pets %}
+<tr>
+<td>{{ pet.pet_id }}</td>
+<td>{{ pet.name }}</td>
+<td>{{ pet.breed }}</td>
+<td>{{ pet.age }}</td>
+<td>{{ pet.price }}</td>
+<td>{{ pet.status }}</td>
+
+<td>
+    <div class="action-buttons">
+        <a href="/edit-pet/{{ pet.pet_id }}">
+            <button class="view-btn">Edit</button>
+        </a>
+
+        <a href="/delete-pet/{{ pet.pet_id }}" 
+           onclick="return confirm('Are you sure you want to delete this pet?');">
+            <button class="delete-btn">Delete</button>
+        </a>
+    </div>
+</td>
+
+</tr>
+{% endfor %}
+</table>
+
+<a href="/add-pet">
+    <button class="add-btn">➕ Add New Pet</button>
+</a>
+
+<a href="/admin-dashboard" class="back">⬅ Back to Dashboard</a>
+
+</div>
+
+</body>
+</html>

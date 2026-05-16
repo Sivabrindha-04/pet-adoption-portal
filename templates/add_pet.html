@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Add Pet</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Segoe UI',sans-serif;
+}
+
+body{
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    background:linear-gradient(135deg,#667eea,#764ba2);
+}
+
+/* Page title */
+h2{
+    color:white;
+    margin-bottom:20px;
+    letter-spacing:1px;
+}
+
+/* Form card */
+.form-card{
+    background:white;
+    padding:35px 30px;
+    width:420px;
+    border-radius:16px;
+    box-shadow:0 15px 40px rgba(0,0,0,0.25);
+    animation:fadeIn 0.5s ease-in-out;
+}
+
+/* Labels */
+label{
+    font-weight:600;
+    display:block;
+    margin-top:12px;
+    margin-bottom:4px;
+    color:#444;
+}
+
+/* Inputs */
+input, select{
+    width:100%;
+    padding:11px;
+    border-radius:8px;
+    border:1px solid #ccc;
+    outline:none;
+    transition:0.3s;
+    font-size:14px;
+}
+
+input:focus, select:focus{
+    border-color:#667eea;
+    box-shadow:0 0 6px rgba(102,126,234,0.4);
+}
+
+/* Button */
+button{
+    margin-top:18px;
+    width:100%;
+    padding:12px;
+    border:none;
+    border-radius:8px;
+    background:linear-gradient(135deg,#667eea,#764ba2);
+    color:white;
+    font-weight:600;
+    font-size:15px;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+button:hover{
+    transform:translateY(-2px);
+    box-shadow:0 8px 18px rgba(0,0,0,0.2);
+}
+
+/* Back link */
+.back-link{
+    margin-top:18px;
+    text-decoration:none;
+    color:white;
+    font-weight:500;
+    transition:0.3s;
+}
+
+.back-link:hover{
+    text-decoration:underline;
+}
+
+/* Animation */
+@keyframes fadeIn{
+    from{opacity:0; transform:translateY(20px);}
+    to{opacity:1; transform:translateY(0);}
+}
+
+/* Mobile responsive */
+@media(max-width:500px){
+    .form-card{
+        width:90%;
+        padding:25px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<h2>➕ Add New Pet</h2>
+
+<form method="POST" action="/add-pet" class="form-card">
+
+<label>Pet Name</label>
+<input type="text" name="pet_name" required>
+
+<label>Breed</label>
+<input type="text" name="breed" required>
+
+<label>Age</label>
+<input type="number" name="age" required>
+
+<label>Price</label>
+<input type="number" name="price" required>
+
+<label>Status</label>
+<select name="status">
+    <option value="Available">Available</option>
+    <option value="Adopted">Adopted</option>
+</select>
+
+<button type="submit">Add Pet</button>
+
+</form>
+
+<a href="/admin-pets" class="back-link">⬅ Back to Manage Pets</a>
+
+</body>
+</html>

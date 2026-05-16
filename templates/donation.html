@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Donate | Pet Adoption Portal</title>
+
+<style>
+/* GENERAL STYLES */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background: url("https://images.pexels.com/photos/8386184/pexels-photo-8386184.jpeg") no-repeat center/cover;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* DONATION BOX */
+.donation-box {
+    background: rgba(255, 255, 255, 0.95);
+    width: 100%;
+    max-width: 450px;
+    padding: 35px 30px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+    text-align: center;
+}
+
+/* TITLE */
+.donation-box h2 {
+    margin-bottom: 25px;
+    color: #2c3e50;
+}
+
+/* INPUTS AND SELECT */
+.donation-box input,
+.donation-box select {
+    width: 100%;
+    padding: 12px 15px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 15px;
+}
+
+/* BUTTONS */
+.donation-box button {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    color: #fff;
+    margin-bottom: 10px;
+    transition: 0.3s;
+}
+
+.donation-box button[type="submit"] {
+    background: #27ae60;
+}
+
+.donation-box button[type="submit"]:hover {
+    background: #219150;
+}
+
+.donation-box .back {
+    background: #2980b9;
+}
+
+.donation-box .back:hover {
+    background: #21618c;
+}
+
+/* RESPONSIVE */
+@media (max-width: 500px) {
+    .donation-box {
+        padding: 25px 20px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="donation-box">
+    <h2>Donate for Pets 🐾</h2>
+
+    <!-- REAL FORM -->
+    <form method="POST" action="/process-donation">
+
+  <p>
+    <input type="text" name="name" placeholder="Donor Name">
+  </p>
+
+  <p>
+    <input type="email" name="email" placeholder="Email">
+  </p>
+
+  <p>
+    <input type="number" name="amount" placeholder="Amount">
+  </p>
+        <select name="payment_method" required>
+            <option value="">-- Select Payment Method --</option>
+            <option value="UPI">UPI</option>
+            <option value="Debit Card">Debit Card</option>
+            <option value="Credit Card">Credit Card</option>
+            <option value="Net Banking">Net Banking</option>
+        </select>
+
+        <button type="submit">Donate Now</button>
+    </form>
+
+    <a href="/dashboard"><button class="back">Back to Dashboard</button></a>
+</div>
+
+</body>
+</html>
